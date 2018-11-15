@@ -80,7 +80,7 @@ ldr 	r1, =0x4000247
 str	r0, [r1]
 
 bl	WAIT_VBLANK
-bl	DRAW_MENU_1
+bl	DRAW_MENU_0
 
 loopy_loop:
 	bl	WAIT_VBLANK
@@ -165,6 +165,25 @@ cmp	r2, #0x0
 bne	CHECK_INPUT_B
 
 @ Check A input - Menu 1
+@ Check TEST 1
+cmp	r11, #0x2
+bne	CHECK_TEST_2
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+bl	DRAW_MENU_1
+bl	MEM_TEST_1_1
+bl	MEM_TEST_1_2
+bl	MEM_TEST_1_3
+b	CHECK_INPUT_AB_RET
+
+@ Check TEST 2
+CHECK_TEST_2:
+
+@ Check TEST 3
+CHECK_TEST_3:
+
+@ Check TEST 4
+CHECK_TEST_4:
 cmp	r11, #0x5
 bne	CHECK_INPUT_AB_RET
 ldr	r0, =0x1
@@ -175,9 +194,17 @@ bl	MEM_TEST_4_2
 bl	MEM_TEST_4_3
 bl	MEM_TEST_4_4
 bl	MEM_TEST_4_5
+b	CHECK_INPUT_AB_RET
 
-
+@ Check B input - Restart entire program to get back to Main Menu
 CHECK_INPUT_B:
+and	r2, r1, #0x2
+cmp	r2, #0x0
+bne	CHECK_INPUT_AB_RET
+
+ldmfd	r13!, {r0, r1, r2, r3, r14}
+b	main
+
 CHECK_INPUT_AB_RET:
 ldmfd	r13!, {r0, r1, r2, r3, r14}
 mov	r15, r14
@@ -186,6 +213,7 @@ mov	r15, r14
 @ Function imports
 .include	"../source/common.s"
 .include	"../source/menu.s"
+.include	"../source/test_1.s"
 .include	"../source/test_4.s"
 
 @@@@@@@@@@@
@@ -200,6 +228,10 @@ main_item_3_str:	.asciz "SHARED WRAM CHECK"
 main_item_4_str:	.asciz "MIRROR CHECK"
 asterisk_str:		.asciz "*"
 blank_str:		.asciz " "
+
+test_1_1_str:		.asciz "16BIT ALIGN READ"
+test_1_2_str:		.asciz "32BIT ALIGN READ"
+test_1_3_str:		.asciz "ARM9 BIOS READ"
 
 test_4_1_str:		.asciz "ARM9 MAIN WRAM"
 test_4_2_str:		.asciz "ARM9 SHARED WRAM"
