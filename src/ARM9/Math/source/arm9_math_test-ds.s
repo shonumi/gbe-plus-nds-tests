@@ -174,6 +174,8 @@ bl	DRAW_MENU_1
 bl	MATH_TEST_1_1
 bl	MATH_TEST_1_2
 bl	MATH_TEST_1_3
+bl	MATH_TEST_1_4
+bl	MATH_TEST_1_5
 b	CHECK_INPUT_AB_RET
 
 @ Check TEST 2
@@ -211,12 +213,19 @@ blank_str:		.asciz " "
 test_1_1_str:		.asciz "MODE 0"
 test_1_2_str:		.asciz "MODE 1"
 test_1_3_str:		.asciz "MODE 2"
+test_1_4_str:		.asciz "DIV BY ZERO 32BIT"
+test_1_5_str:		.asciz "DIV BY ZERO 64BIT"
 
 fail_str:		.asciz "FAIL"
 fail_code_1_str:	.asciz "1"
 fail_code_2_str:	.asciz "2"
 fail_code_3_str:	.asciz "3"
 fail_code_4_str:	.asciz "4"
+fail_code_5_str:	.asciz "5"
+fail_code_6_str:	.asciz "6"
+fail_code_7_str:	.asciz "7"
+fail_code_8_str:	.asciz "8"
+fail_code_9_str:	.asciz "9"
 pass_str:		.asciz "PASS"
 
 .end
