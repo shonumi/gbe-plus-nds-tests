@@ -176,6 +176,8 @@ bl	MATH_TEST_1_2
 bl	MATH_TEST_1_3
 bl	MATH_TEST_1_4
 bl	MATH_TEST_1_5
+bl	MATH_TEST_1_6
+bl	MATH_TEST_1_7
 b	CHECK_INPUT_AB_RET
 
 @ Check TEST 2
@@ -215,6 +217,8 @@ test_1_2_str:		.asciz "MODE 1"
 test_1_3_str:		.asciz "MODE 2"
 test_1_4_str:		.asciz "DIV BY ZERO 32BIT"
 test_1_5_str:		.asciz "DIV BY ZERO 64BIT"
+test_1_6_str:		.asciz "DIV MAX 32BIT"
+test_1_7_str:		.asciz "DIV MAX 64BIT"
 
 fail_str:		.asciz "FAIL"
 fail_code_1_str:	.asciz "1"

@@ -475,3 +475,153 @@ bl	PRINT_STRING
 MATH_TEST_1_5_RET:
 ldmfd	r13!, {r0, r1, r2, r3, r14}
 mov	r15, r14
+
+@@@@@@@@@@@@@@@@
+@ MATH_TEST_1_6 @
+@@@@@@@@@@@@@@@@
+@ No parameters
+@@@@@@@@@@@@@@@@
+MATH_TEST_1_6:
+
+stmfd	r13!, {r0, r1, r2, r3, r14}
+
+@ Tests 32-bit/32-bit division
+@ Setup DIVCNT
+mov	r0, #0x00
+ldr	r1, =#0x4000280
+str	r0, [r1]
+
+@ 0x80000000 = Numerator Part 1
+ldr	r0, =0x80000000
+ldr	r1, =0x4000290
+str	r0, [r1]
+
+@ 0xFFFFFFFF = Denominator Part 1
+ldr	r0, =0xFFFFFFFF
+ldr	r1, =0x4000298
+str	r0, [r1]
+
+@ Wait 1 frame, then grab result
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+@ DIV_RESULT Part 1 - should be 0x80000000
+ldr	r1, =0x40002A0
+ldr	r0, [r1]
+
+ldr	r2, =0x80000000
+cmp	r0, r2
+bne	MATH_TEST_1_6_FAIL
+	
+@ Draw PASS
+str	r3, [r1]
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =pass_str
+mov	r1, #0x1C
+mov	r2, #0x07
+bl	PRINT_STRING
+b	MATH_TEST_1_6_RET
+
+@ Draw FAIL
+MATH_TEST_1_6_FAIL:
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =fail_str
+mov	r1, #0x1C
+mov	r2, #0x07
+bl	PRINT_STRING
+
+MATH_TEST_1_6_RET:
+ldmfd	r13!, {r0, r1, r2, r3, r14}
+mov	r15, r14
+
+@@@@@@@@@@@@@@@@
+@ MATH_TEST_1_7 @
+@@@@@@@@@@@@@@@@
+@ No parameters
+@@@@@@@@@@@@@@@@
+MATH_TEST_1_7:
+
+stmfd	r13!, {r0, r1, r2, r3, r14}
+
+@ Tests 64-bit/64-bit division
+@ Setup DIVCNT
+mov	r0, #0x02
+ldr	r1, =#0x4000280
+str	r0, [r1]
+
+@ 0x00000000 = Numerator Part 1
+ldr	r0, =0x00000000
+ldr	r1, =0x4000290
+str	r0, [r1]
+
+@ 0x80000000 = Numerator Part 2
+ldr	r0, =0x80000000
+ldr	r1, =0x4000294
+str	r0, [r1]
+
+@ 0xFFFFFFFF = Denominator Part 1
+ldr	r0, =0xFFFFFFFF
+ldr	r1, =0x4000298
+str	r0, [r1]
+
+@ 0xFFFFFFFF = Denominator Part 2
+ldr	r0, =0xFFFFFFFF
+ldr	r1, =0x400029C
+str	r0, [r1]
+
+@ Wait 1 frame, then grab result
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+@ DIV_RESULT Part 1 - should be 0x00000000
+ldr	r1, =0x40002A0
+ldr	r0, [r1]
+
+ldr	r2, =0x00000000
+cmp	r0, r2
+mov	r3, #0x00
+bne	MATH_TEST_1_7_FAIL
+
+@ DIV_RESULT Part 2 - should be 0x80000000
+ldr	r1, =0x40002A4
+ldr	r0, [r1]
+
+ldr	r2, =0x80000000
+cmp	r0, r2
+mov	r3, #0x01
+bne	MATH_TEST_1_7_FAIL
+	
+@ Draw PASS
+str	r3, [r1]
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =pass_str
+mov	r1, #0x1C
+mov	r2, #0x08
+bl	PRINT_STRING
+b	MATH_TEST_1_7_RET
+
+@ Draw FAIL
+MATH_TEST_1_7_FAIL:
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =fail_str
+mov	r1, #0x1A
+mov	r2, #0x08
+bl	PRINT_STRING
+
+ldr	r0, =fail_code_1_str
+add	r0, r3, lsl #0x01
+mov	r1, #0x1F
+mov	r2, #0x08
+bl	PRINT_STRING
+
+MATH_TEST_1_7_RET:
+ldmfd	r13!, {r0, r1, r2, r3, r14}
+mov	r15, r14
