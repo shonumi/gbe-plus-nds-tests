@@ -182,6 +182,12 @@ b	CHECK_INPUT_AB_RET
 
 @ Check TEST 2
 CHECK_TEST_2:
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+bl	DRAW_MENU_2
+bl	MATH_TEST_2_1
+bl	MATH_TEST_2_2
+b	CHECK_INPUT_AB_RET
 
 @ Check B input - Restart entire program to get back to Main Menu
 CHECK_INPUT_B:
@@ -200,6 +206,7 @@ mov	r15, r14
 .include	"../source/common.s"
 .include	"../source/menu.s"
 .include	"../source/test_1.s"
+.include	"../source/test_2.s"
 
 @@@@@@@@@@@
 @ Strings @
@@ -219,6 +226,9 @@ test_1_4_str:		.asciz "DIV BY ZERO 32BIT"
 test_1_5_str:		.asciz "DIV BY ZERO 64BIT"
 test_1_6_str:		.asciz "DIV MAX 32BIT"
 test_1_7_str:		.asciz "DIV MAX 64BIT"
+
+test_2_1_str:		.asciz "SQRT 32BIT"
+test_2_2_str:		.asciz "SQRT 64BIT"
 
 fail_str:		.asciz "FAIL"
 fail_code_1_str:	.asciz "1"
