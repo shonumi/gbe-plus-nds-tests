@@ -185,7 +185,7 @@ CHECK_TEST_3:
 @ Check TEST 4
 CHECK_TEST_4:
 cmp	r11, #0x5
-bne	CHECK_INPUT_AB_RET
+bne	CHECK_TEST_5
 ldr	r0, =0x1
 bl	WAIT_FRAMES
 bl	DRAW_MENU_4
@@ -194,6 +194,16 @@ bl	MEM_TEST_4_2
 bl	MEM_TEST_4_3
 bl	MEM_TEST_4_4
 bl	MEM_TEST_4_5
+b	CHECK_INPUT_AB_RET
+
+@ Check TEST 5
+CHECK_TEST_5:
+cmp	r11, #0x6
+bne	CHECK_INPUT_AB_RET
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+bl	DRAW_MENU_5
+bl	MEM_TEST_5_1
 b	CHECK_INPUT_AB_RET
 
 @ Check B input - Restart entire program to get back to Main Menu
@@ -215,6 +225,7 @@ mov	r15, r14
 .include	"../source/menu.s"
 .include	"../source/test_1.s"
 .include	"../source/test_4.s"
+.include	"../source/test_5.s"
 
 @@@@@@@@@@@
 @ Strings @
@@ -226,6 +237,7 @@ main_item_1_str:	.asciz "READING"
 main_item_2_str:	.asciz "WRITING"
 main_item_3_str:	.asciz "SHARED WRAM CHECK"
 main_item_4_str:	.asciz "MIRROR CHECK"
+main_item_5_str:	.asciz "BIOS RAM USAGE"
 asterisk_str:		.asciz "*"
 blank_str:		.asciz " "
 
@@ -238,6 +250,21 @@ test_4_2_str:		.asciz "ARM9 SHARED WRAM"
 test_4_3_str:		.asciz "ARM9 PALETTES"
 test_4_4_str:		.asciz "ARM9 OAM"
 test_4_5_str:		.asciz "ARM9 ITCM BASE"
+
+test_5_1_str:		.asciz "CHIP ID 1"
+test_5_2_str:		.asciz "CHIP ID 2"
+test_5_3_str:		.asciz "FRAME COUNTER"
+test_5_4_str:		.asciz "BOOT STATUS"
+test_5_5_str:		.asciz "NICKNAME"
+test_5_6_str:		.asciz "ADC X1"
+test_5_7_str:		.asciz "ADC Y1"
+test_5_8_str:		.asciz "SCR X1"
+test_5_9_str:		.asciz "SCR Y1"
+test_5_10_str:		.asciz "ADC X2"
+test_5_11_str:		.asciz "ADC Y2"
+test_5_12_str:		.asciz "SCR X2"
+test_5_13_str:		.asciz "SCR Y2"
+test_5_name:		.asciz "            "
 
 
 fail_str:		.asciz "FAIL"
