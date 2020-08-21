@@ -178,6 +178,14 @@ b	CHECK_INPUT_AB_RET
 
 @ Check TEST 2
 CHECK_TEST_2:
+cmp	r11, #0x03
+bne	CHECK_TEST_3
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+bl	DRAW_MENU_2
+bl	MEM_TEST_2_1
+bl	MEM_TEST_2_2
+b	CHECK_INPUT_AB_RET
 
 @ Check TEST 3
 CHECK_TEST_3:
@@ -224,6 +232,7 @@ mov	r15, r14
 .include	"../source/common.s"
 .include	"../source/menu.s"
 .include	"../source/test_1.s"
+.include	"../source/test_2.s"
 .include	"../source/test_4.s"
 .include	"../source/test_5.s"
 
@@ -244,6 +253,9 @@ blank_str:		.asciz " "
 test_1_1_str:		.asciz "16BIT ALIGN READ"
 test_1_2_str:		.asciz "32BIT ALIGN READ"
 test_1_3_str:		.asciz "ARM9 BIOS READ"
+
+test_2_1_str:		.asciz "16BIT ALIGN WRITE"
+test_2_2_str:		.asciz "32BIT ALIGN WRITE"
 
 test_4_1_str:		.asciz "ARM9 MAIN WRAM"
 test_4_2_str:		.asciz "ARM9 SHARED WRAM"

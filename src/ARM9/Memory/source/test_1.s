@@ -2,7 +2,7 @@
 @ Licensed under the GPLv2 or newer
 @
 @ File : test_1.s
-@ Date : Octover 9th, 2018
+@ Date : October 9th, 2018
 @ Description : Memory Test 1
 @
 @ Tests reading various memory locations under different conditions 

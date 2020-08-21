@@ -107,6 +107,43 @@ mov	r15, r14
 
 
 @@@@@@@@@@@@@@@
+@ DRAW_MENU_2 @
+@@@@@@@@@@@@@@@
+@ No parameters
+@@@@@@@@@@@@@@@
+DRAW_MENU_2:
+
+stmfd	r13!, {r0, r1, r2, r3, r14}
+
+bl	CLEAR_MAP
+
+ldr	r0, =main_item_4_str
+mov	r1, #0x00
+mov	r2, #0x00
+bl	PRINT_STRING
+
+ldr	r0, =test_2_1_str
+mov	r1, #0x02
+mov	r2, #0x02
+bl	PRINT_STRING
+
+ldr	r0, =test_2_2_str
+mov	r1, #0x02
+mov	r2, #0x03
+bl	PRINT_STRING
+
+@ Set default global state in R10
+mov	r10, #0x01
+
+@ Set global cursor position in R11
+mov	r11, #0x00
+
+@ Return
+ldmfd	r13!, {r0, r1, r2, r3, r14}
+mov	r15, r14
+
+
+@@@@@@@@@@@@@@@
 @ DRAW_MENU_4 @
 @@@@@@@@@@@@@@@
 @ No parameters

@@ -163,6 +163,51 @@ PRINT_VALUE_RET:
 ldmfd	r13!, {r0, r1, r2, r3, r4, r5, r6}
 mov	r15, r14
 
+
+@@@@@@@@@@@@@@@@
+@ PRINT_U16    @
+@@@@@@@@@@@@@@@@
+@ R0 -> 16-bit value
+@ R1 -> X offset
+@ R2 -> Y offset
+@@@@@@@@@@@@@@@@
+PRINT_VALUE:
+
+stmfd	r13!, {r0, r1, r2, r3, r4, r5, r6}
+
+@ Print 4 characters max.
+@ R3 = address to VRAM map, R4 = loop counter, R5 = mask, R6 = scratch
+ldr	r3, =0x6001000
+lsl	r1, r1, #0x1
+add	r3, r1, r3
+lsl	r2, r2, #0x6
+add	r3, r2, r3
+mov	r2, #0x20
+
+mov	r4, #0x04
+mov	r5, #0xF0000000
+
+@@@ Draw result by shifting R0 and converting the result to map entries
+PARSE_VALUE:
+
+@Convert to map entry format
+and	r6, r0, r5
+mov	r6, r6, LSR #0x1C
+add	r6, #0x01
+mov	r0, r0, LSL #0x04
+
+@ Store map entry, update address and loop counter
+strh	r6, [r3]
+add	r3, #0x02
+subs	r4, #0x01
+bne	PARSE_VALUE
+
+@ Return
+PRINT_VALUE_RET:
+ldmfd	r13!, {r0, r1, r2, r3, r4, r5, r6}
+mov	r15, r14
+
+
 @@@@@@@@@@@@@@@
 @ WAIT_FRAMES @
 @@@@@@@@@@@@@@@
