@@ -95,6 +95,11 @@ mov	r1, #0x02
 mov	r2, #0x04
 bl	PRINT_STRING
 
+ldr	r0, =test_1_4_str
+mov	r1, #0x02
+mov	r2, #0x05
+bl	PRINT_STRING
+
 @ Set default global state in R10
 mov	r10, #0x01
 

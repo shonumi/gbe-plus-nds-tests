@@ -162,3 +162,66 @@ bl	PRINT_STRING
 MEM_TEST_1_3_RET:
 ldmfd	r13!, {r0, r1, r2, r3, r14}
 mov	r15, r14
+
+
+@@@@@@@@@@@@@@@@
+@ MEM_TEST_1_4 @
+@@@@@@@@@@@@@@@@
+@ No parameters
+@@@@@@@@@@@@@@@@
+MEM_TEST_1_4:
+
+stmfd	r13!, {r0, r1, r2, r3, r14}
+
+@ Tests reading from GBA slot when the ARM9 is deselected via EXMEMCNT
+@ In that case, the value should be 0
+
+@ Setup EXMEMCNT
+ldr	r0, =0xE080
+ldr	r1, =0x4000204
+strh	r0, [r1]
+
+@ Read 32-bit value from 0x8000000
+mov	r1, #0x8000000
+ldr	r0, [r1]
+
+cmp	r0, #0x00
+bne	MEM_TEST_1_4_FAIL
+
+@ Read 32-bit value from 0x9000000
+mov	r1, #0x9000000
+ldr	r0, [r1]
+
+cmp	r0, #0x00
+bne	MEM_TEST_1_4_FAIL
+
+@ Read 32-bit value from 0xA000000
+mov	r1, #0xA000000
+ldr	r0, [r1]
+
+cmp	r0, #0x00
+bne	MEM_TEST_1_4_FAIL
+
+@ Draw PASS
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =pass_str
+mov	r1, #0x1C
+mov	r2, #0x05
+bl	PRINT_STRING
+b	MEM_TEST_1_4_RET
+
+@ Draw FAIL
+MEM_TEST_1_4_FAIL:
+ldr	r0, =0x1
+bl	WAIT_FRAMES
+
+ldr	r0, =fail_str
+mov	r1, #0x1C
+mov	r2, #0x05
+bl	PRINT_STRING
+
+MEM_TEST_1_4_RET:
+ldmfd	r13!, {r0, r1, r2, r3, r14}
+mov	r15, r14

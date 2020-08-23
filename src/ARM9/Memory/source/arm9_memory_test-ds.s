@@ -174,6 +174,7 @@ bl	DRAW_MENU_1
 bl	MEM_TEST_1_1
 bl	MEM_TEST_1_2
 bl	MEM_TEST_1_3
+bl	MEM_TEST_1_4
 b	CHECK_INPUT_AB_RET
 
 @ Check TEST 2
@@ -253,6 +254,7 @@ blank_str:		.asciz " "
 test_1_1_str:		.asciz "16BIT ALIGN READ"
 test_1_2_str:		.asciz "32BIT ALIGN READ"
 test_1_3_str:		.asciz "ARM9 BIOS READ"
+test_1_4_str:		.asciz "GBA SLOT DESELECTED"
 
 test_2_1_str:		.asciz "16BIT ALIGN WRITE"
 test_2_2_str:		.asciz "32BIT ALIGN WRITE"
