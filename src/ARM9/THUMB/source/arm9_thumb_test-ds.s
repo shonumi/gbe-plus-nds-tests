@@ -172,6 +172,9 @@ bl	DRAW_MENU_1
 bl	THUMB_TEST_1_1
 bl	THUMB_TEST_1_2
 bl	THUMB_TEST_1_3
+bl	THUMB_TEST_1_4
+bl	THUMB_TEST_1_5
+bl	THUMB_TEST_1_6
 b	CHECK_INPUT_AB_RET
 
 @ Check B input - Restart entire program to get back to Main Menu
@@ -210,6 +213,9 @@ blank_str:		.asciz " "
 test_1_1_str:		.asciz "LSL 00"
 test_1_2_str:		.asciz "LSL 10"
 test_1_3_str:		.asciz "LSL 1F"
+test_1_4_str:		.asciz "LSR 00"
+test_1_5_str:		.asciz "LSR 10"
+test_1_6_str:		.asciz "LSR 1F"
 
 fail_str:		.asciz "FAIL"
 fail_code_1_str:	.asciz "FAIL 1"
